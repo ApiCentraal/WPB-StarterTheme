@@ -192,9 +192,10 @@ Dit thema is geïnspireerd door de volgende open source projecten:
 
 | Project | Inspiratie | Link |
 |---------|------------|------|
+| **Understrap** | Thema architectuur, Nav Walker | [understrap/understrap](https://github.com/understrap/understrap) |
 | **Bootstrap Blocks** | Gutenberg blocks structuur | [tschortsch/bootstrap-blocks-wordpress-plugin](https://github.com/tschortsch/bootstrap-blocks-wordpress-plugin) |
 | **Bootstrap 3 Shortcodes** | Shortcode API opzet | [MWDelaney/bootstrap-3-shortcodes](https://github.com/MWDelaney/bootstrap-3-shortcodes) |
-| **Activello** | Blog features, widgets, author box | [developer.flavor.dev/flavor-flavtheme](https://developer.flavor.dev/flavor-flavtheme) |
+| **Activello** | Blog features, widgets, author box | [ColorlibHQ/flavor-flavtheme](https://github.com/developer.flavor.dev/flavor-flavtheme) |
 
 ## 📄 Licentie
 
