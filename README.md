@@ -2,6 +2,8 @@
 
 Minimalistisch WordPress starter thema met Bootstrap 5.3 via CDN. Geen build tools of externe PHP-libraries - puur WordPress thema-ontwikkeling.
 
+**Versie:** 1.0.0 | **Laatste update:** 2 december 2024
+
 ## ✨ Kenmerken
 
 - **Bootstrap 5.3.4** via jsDelivr CDN
