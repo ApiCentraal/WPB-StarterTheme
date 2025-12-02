@@ -306,11 +306,111 @@ wp_nav_menu([
 - [x] Offcanvas navbar optie
 - [x] Custom zoekformulier
 
-### 🔲 Nog te implementeren
-- [ ] screenshot.png (1200×900)
-- [ ] WooCommerce support
-- [ ] Translation .pot bestand
-- [ ] Child theme template
+### 🔲 Nog te implementeren (Prioriteit 5-9)
+
+#### Prioriteit 5 — Bootstrap Blocks (Gutenberg)
+*Geïnspireerd door [bootstrap-blocks-wordpress-plugin](https://github.com/tschortsch/bootstrap-blocks-wordpress-plugin)*
+
+| Feature | Beschrijving | Bestand(en) |
+|---------|--------------|-------------|
+| Container Block | Bootstrap container/container-fluid block | `src/blocks/container/` |
+| Row Block | Row met template keuze (1:1, 1:2, 2:1) | `src/blocks/row/` |
+| Column Block | Responsive kolommen (xs-xxl breakpoints) | `src/blocks/column/` |
+| Button Block | Alle Bootstrap button variants | `src/blocks/button/` |
+| Block Filters | PHP/JS filters voor block classes | `inc/block-filters.php` |
+
+**Implementatie Pipeline**:
+```
+Block Registratie (PHP)
+    ↓
+register_block_type('wpbs/container')
+    ↓
+block.json → attributes, supports, editorScript
+    ↓
+edit.js → InnerBlocks, InspectorControls
+    ↓
+save.js of render.php → Frontend output
+    ↓
+Filters: wp_bootstrap_blocks_{block}_classes
+```
+
+#### Prioriteit 6 — Bootstrap Shortcodes
+*Geïnspireerd door [bootstrap-3-shortcodes](https://github.com/MWDelaney/bootstrap-3-shortcodes)*
+
+| Shortcode | Parameters | Output |
+|-----------|------------|--------|
+| `[container]` | `fluid`, `xclass` | `<div class="container">` |
+| `[row]` | `xclass` | `<div class="row">` |
+| `[column]` | `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `offset_*` | `<div class="col-*">` |
+| `[button]` | `type`, `size`, `link`, `target`, `block` | `<a class="btn btn-*">` |
+| `[alert]` | `type`, `dismissable` | `<div class="alert alert-*">` |
+| `[tabs]` | `type` (tabs/pills), `fade` | `<ul class="nav nav-tabs">` |
+| `[accordion]` | `id` | `<div class="accordion">` |
+| `[modal]` | `text`, `title`, `size` | Modal trigger + content |
+| `[carousel]` | `interval`, `controls` | `<div class="carousel">` |
+| `[card]` | `title`, `img`, `footer` | `<div class="card">` |
+
+**Shortcode Pipeline**:
+```
+Content Filter
+    ↓
+do_shortcode('[button type="primary"]Klik[/button]')
+    ↓
+wpbs_button_shortcode($atts, $content)
+    ↓
+shortcode_atts() → defaults + user input
+    ↓
+sprintf('<a class="btn btn-%s">%s</a>', $type, $content)
+    ↓
+Gefilterde HTML output
+```
+
+**Bestand**: `inc/shortcodes.php` (~500 regels)
+
+#### Prioriteit 7 — Blog Features
+*Geïnspireerd door [Activello](https://github.com/ColorlibHQ/Activello)*
+
+| Feature | Beschrijving | Bestand(en) |
+|---------|--------------|-------------|
+| Featured Slider | FlexSlider met posts uit categorie | `inc/featured-slider.php` |
+| Social Menu | Automatische social icons (FA) | `inc/social-nav.php` |
+| Social Widget | Widget met social links | `inc/widgets/social-widget.php` |
+| Recent Posts Widget | Met thumbnails | `inc/widgets/recent-posts.php` |
+| Author Box | Auteur info onder posts | `template-parts/author-box.php` |
+| Related Posts | Gerelateerde posts | `template-parts/related-posts.php` |
+| Post Meta Box | Per-post sidebar keuze | `inc/metaboxes.php` |
+| Color Customizer | Accent/social icon kleuren | `inc/customizer.php` uitbreiding |
+| Welcome Screen | Getting started dashboard | `inc/welcome-screen/` |
+
+**Social Menu Pipeline**:
+```
+Weergave → Menu's → Social Menu
+    ↓
+wp_nav_menu(['theme_location' => 'social-menu'])
+    ↓
+Link bevat "twitter.com" → .fa-twitter icon
+Link bevat "facebook.com" → .fa-facebook icon
+Link bevat "instagram.com" → .fa-instagram icon
+    ↓
+<a href="https://twitter.com/..."><i class="fab fa-twitter"></i></a>
+```
+
+#### Prioriteit 8 — Plugin Integraties
+
+| Plugin | Ondersteuning | Bestand |
+|--------|---------------|---------|
+| WooCommerce | Bootstrap product styling | `woocommerce.php`, `woocommerce/` |
+| Jetpack | Infinite scroll, social menu | `inc/jetpack.php` |
+| Contact Form 7 | Bootstrap form classes | `assets/css/cf7-bootstrap.css` |
+
+#### Prioriteit 9 — Developer Experience
+
+| Feature | Beschrijving |
+|---------|--------------|
+| screenshot.png | 1200×900 thema preview |
+| .pot bestand | Translation template genereren |
+| Child theme | Starter child theme template |
+| Sass pipeline | Optionele Vite/npm build |
 
 ---
 
