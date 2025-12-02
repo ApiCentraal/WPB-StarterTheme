@@ -31,6 +31,11 @@ require_once get_template_directory() . '/inc/widgets/class-wpbs-recent-posts-wi
 // User Profile Extensions (social media velden)
 require_once get_template_directory() . '/inc/user-profile.php';
 
+// Plugin Integraties (laden alleen als plugin actief is)
+require_once get_template_directory() . '/inc/woocommerce.php';
+require_once get_template_directory() . '/inc/jetpack.php';
+require_once get_template_directory() . '/inc/contact-form-7.php';
+
 // =============================================================================
 // 1. THEMA SETUP
 // =============================================================================

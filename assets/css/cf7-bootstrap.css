@@ -1,0 +1,407 @@
+/**
+ * Contact Form 7 Bootstrap 5 Styling
+ *
+ * Transformeert CF7 formulieren naar Bootstrap 5 stijl.
+ *
+ * @package WP_Bootstrap_Starter
+ * @since 0.2.0
+ */
+
+/* =============================================================================
+   FORM CONTAINER
+   ============================================================================= */
+
+.wpcf7 {
+    margin: 0;
+    padding: 0;
+}
+
+.wpcf7-form {
+    /* Optioneel: card styling */
+}
+
+.wpcf7-form p {
+    margin-bottom: 1rem;
+}
+
+/* =============================================================================
+   TEXT INPUTS
+   ============================================================================= */
+
+.wpcf7-form-control:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not(.wpcf7-acceptance) {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    appearance: none;
+    border-radius: var(--bs-border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.wpcf7-form-control:not([type="submit"]):focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Textarea */
+.wpcf7-form-control.wpcf7-textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* =============================================================================
+   SELECT DROPDOWN
+   ============================================================================= */
+
+.wpcf7-form-control.wpcf7-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    appearance: none;
+}
+
+.wpcf7-form-control.wpcf7-select:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* =============================================================================
+   CHECKBOX & RADIO
+   ============================================================================= */
+
+.wpcf7-checkbox,
+.wpcf7-radio {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.wpcf7-checkbox .wpcf7-list-item,
+.wpcf7-radio .wpcf7-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.wpcf7-checkbox .wpcf7-list-item-label,
+.wpcf7-radio .wpcf7-list-item-label {
+    margin: 0;
+    cursor: pointer;
+}
+
+.wpcf7-checkbox input[type="checkbox"],
+.wpcf7-radio input[type="radio"] {
+    width: 1em;
+    height: 1em;
+    margin: 0;
+    vertical-align: middle;
+    background-color: var(--bs-body-bg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    appearance: none;
+    cursor: pointer;
+}
+
+.wpcf7-checkbox input[type="checkbox"] {
+    border-radius: 0.25em;
+}
+
+.wpcf7-radio input[type="radio"] {
+    border-radius: 50%;
+}
+
+.wpcf7-checkbox input[type="checkbox"]:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.wpcf7-radio input[type="radio"]:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+.wpcf7-checkbox input:focus,
+.wpcf7-radio input:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Horizontal layout voor checkboxes/radios */
+.wpcf7-checkbox.wpcf7-checkbox--horizontal,
+.wpcf7-radio.wpcf7-radio--horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* =============================================================================
+   ACCEPTANCE (GDPR)
+   ============================================================================= */
+
+.wpcf7-acceptance {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.wpcf7-acceptance input[type="checkbox"] {
+    width: 1em;
+    height: 1em;
+    margin-top: 0.25em;
+    background-color: var(--bs-body-bg);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: 0.25em;
+    appearance: none;
+    cursor: pointer;
+}
+
+.wpcf7-acceptance input[type="checkbox"]:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* =============================================================================
+   FILE UPLOAD
+   ============================================================================= */
+
+.wpcf7-file {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+}
+
+.wpcf7-file::file-selector-button {
+    padding: 0.375rem 0.75rem;
+    margin: -0.375rem 0.75rem -0.375rem -0.75rem;
+    color: var(--bs-body-color);
+    background-color: var(--bs-light);
+    border: 0;
+    border-right: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+/* =============================================================================
+   SUBMIT BUTTON
+   ============================================================================= */
+
+.wpcf7-submit {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--bs-primary);
+    border: var(--bs-border-width) solid var(--bs-primary);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: var(--bs-border-radius);
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.wpcf7-submit:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.wpcf7-submit:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+}
+
+.wpcf7-submit:disabled {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+/* Large Submit Button */
+.wpcf7-submit.btn-lg {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.5rem;
+}
+
+/* Block Submit Button */
+.wpcf7-submit.btn-block {
+    display: block;
+    width: 100%;
+}
+
+/* =============================================================================
+   SPINNER / LOADING
+   ============================================================================= */
+
+.wpcf7 .wpcf7-spinner {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: middle;
+    border: 0.2em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: cf7-spinner 0.75s linear infinite;
+    margin-left: 0.5rem;
+}
+
+@keyframes cf7-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =============================================================================
+   VALIDATION MESSAGES
+   ============================================================================= */
+
+.wpcf7-not-valid-tip {
+    color: var(--bs-danger);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.wpcf7-form-control.wpcf7-not-valid {
+    border-color: var(--bs-danger);
+}
+
+.wpcf7-form-control.wpcf7-not-valid:focus {
+    border-color: var(--bs-danger);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
+}
+
+/* =============================================================================
+   RESPONSE OUTPUT
+   ============================================================================= */
+
+.wpcf7-response-output {
+    padding: 1rem 1.25rem;
+    margin: 1rem 0 0;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid;
+}
+
+/* Success */
+.wpcf7-form.sent .wpcf7-response-output {
+    background-color: var(--bs-success-bg-subtle);
+    border-color: var(--bs-success-border-subtle);
+    color: var(--bs-success-text-emphasis);
+}
+
+/* Error */
+.wpcf7-form.invalid .wpcf7-response-output,
+.wpcf7-form.unaccepted .wpcf7-response-output,
+.wpcf7-form.payment-required .wpcf7-response-output {
+    background-color: var(--bs-danger-bg-subtle);
+    border-color: var(--bs-danger-border-subtle);
+    color: var(--bs-danger-text-emphasis);
+}
+
+/* Spam */
+.wpcf7-form.spam .wpcf7-response-output {
+    background-color: var(--bs-warning-bg-subtle);
+    border-color: var(--bs-warning-border-subtle);
+    color: var(--bs-warning-text-emphasis);
+}
+
+/* Aborted/Failed */
+.wpcf7-form.aborted .wpcf7-response-output,
+.wpcf7-form.failed .wpcf7-response-output {
+    background-color: var(--bs-secondary-bg-subtle);
+    border-color: var(--bs-secondary-border-subtle);
+    color: var(--bs-secondary-text-emphasis);
+}
+
+/* =============================================================================
+   QUIZ
+   ============================================================================= */
+
+.wpcf7-quiz-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* =============================================================================
+   DATE PICKER
+   ============================================================================= */
+
+.wpcf7-date {
+    max-width: 200px;
+}
+
+/* =============================================================================
+   FORM GROUPS (OPTIONAL HELPER CLASSES)
+   ============================================================================= */
+
+/* Add these classes to your CF7 form for enhanced styling */
+.form-floating .wpcf7-form-control {
+    height: calc(3.5rem + 2px);
+    padding: 1rem 0.75rem;
+}
+
+.input-group .wpcf7-form-control {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+}
+
+/* =============================================================================
+   RECAPTCHA
+   ============================================================================= */
+
+.wpcf7-recaptcha {
+    margin-bottom: 1rem;
+}
+
+/* =============================================================================
+   RESPONSIVE
+   ============================================================================= */
+
+@media (max-width: 575.98px) {
+    .wpcf7-submit {
+        width: 100%;
+    }
+}
