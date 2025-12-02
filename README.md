@@ -186,6 +186,16 @@ Een starter child theme is beschikbaar in `/starter-child-theme/`:
 - Emoji scripts/styles verwijderd
 - Escape alle output met `esc_*` functies
 
+## 🙏 Inspiratiebronnen
+
+Dit thema is geïnspireerd door de volgende open source projecten:
+
+| Project | Inspiratie | Link |
+|---------|------------|------|
+| **Bootstrap Blocks** | Gutenberg blocks structuur | [tschortsch/bootstrap-blocks-wordpress-plugin](https://github.com/tschortsch/bootstrap-blocks-wordpress-plugin) |
+| **Bootstrap 3 Shortcodes** | Shortcode API opzet | [MWDelaney/bootstrap-3-shortcodes](https://github.com/MWDelaney/bootstrap-3-shortcodes) |
+| **Activello** | Blog features, widgets, author box | [developer.flavor.dev/flavor-flavtheme](https://developer.flavor.dev/flavor-flavtheme) |
+
 ## 📄 Licentie
 
 GPL v2 of later — [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
