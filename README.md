@@ -82,8 +82,6 @@ Registreert `primary-sidebar` widget gebied met Bootstrap card styling.
 
 ## 📋 Roadmap
 
-Gebaseerd op vergelijking met [Understrap](https://github.com/understrap/understrap):
-
 ### Prioriteit 1 — Essentieel
 - [ ] **Bootstrap Nav Walker** — Dropdown menu's met Bootstrap 5 classes (`inc/class-wp-bootstrap-navwalker.php`)
 - [ ] **Custom Logo support** — `add_theme_support('custom-logo')` in `functions.php`
