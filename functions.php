@@ -21,6 +21,9 @@ require_once get_template_directory() . '/inc/class-wp-bootstrap-navwalker.php';
 // Theme Customizer instellingen
 require_once get_template_directory() . '/inc/customizer.php';
 
+// Bootstrap 5.3 Shortcodes
+require_once get_template_directory() . '/inc/shortcodes.php';
+
 // =============================================================================
 // 1. THEMA SETUP
 // =============================================================================
