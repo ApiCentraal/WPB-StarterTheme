@@ -82,10 +82,43 @@ Registreert `primary-sidebar` widget gebied met Bootstrap card styling.
 
 ## 📋 Roadmap
 
-- [ ] `screenshot.png` (1200x900) toevoegen
-- [ ] `theme.json` voor Gutenberg block styling
-- [ ] Bootstrap Nav Walker voor dropdown menu's
-- [ ] npm/Vite build pipeline (optioneel)
+Gebaseerd op vergelijking met [Understrap](https://github.com/understrap/understrap):
+
+### Prioriteit 1 — Essentieel
+- [ ] **Bootstrap Nav Walker** — Dropdown menu's met Bootstrap 5 classes (`inc/class-wp-bootstrap-navwalker.php`)
+- [ ] **Custom Logo support** — `add_theme_support('custom-logo')` in `functions.php`
+- [ ] **Skip to content link** — Accessibility verbetering in `header.php`
+- [ ] **screenshot.png** — 1200x900 thema preview afbeelding
+
+### Prioriteit 2 — Customizer & Layout
+- [ ] **Theme Customizer** — Container type (container/container-fluid) instelling
+- [ ] **Sidebar positie** — Links/rechts/geen via Customizer
+- [ ] **Container type variabel** — `get_theme_mod('container_type')` in templates
+- [ ] **Footer widget area** — Extra widget gebied in footer
+
+### Prioriteit 3 — Gutenberg & Blocks
+- [ ] **theme.json** — Block editor kleuren, spacing, fonts
+- [ ] **Editor styles** — `add_theme_support('editor-styles')`
+- [ ] **Wide alignment** — `add_theme_support('align-wide')`
+- [ ] **Block styling** — Bootstrap classes voor Gutenberg blocks
+
+### Prioriteit 4 — Extra Features
+- [ ] **Custom header image** — `add_theme_support('custom-header')`
+- [ ] **Custom background** — `add_theme_support('custom-background')`
+- [ ] **Post formats** — aside, image, video, quote, link
+- [ ] **Offcanvas navbar** — Alternatief voor collapse menu (BS5)
+- [ ] **Responsive embeds** — `add_theme_support('responsive-embeds')`
+
+### Prioriteit 5 — Plugins & Integraties
+- [ ] **WooCommerce support** — `woocommerce.php` met Bootstrap styling
+- [ ] **Jetpack compatibility** — Infinite scroll, social menu
+- [ ] **Contact Form 7 styling** — Bootstrap form classes
+
+### Prioriteit 6 — Developer Experience
+- [ ] **Sass/npm build pipeline** — Vite of Webpack configuratie
+- [ ] **Minified CSS/JS** — Productie builds met `.min` bestanden
+- [ ] **Translation ready** — `.pot` bestand genereren
+- [ ] **Child theme** — Starter child theme template
 
 ## 📄 Licentie
 
