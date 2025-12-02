@@ -36,6 +36,9 @@ require_once get_template_directory() . '/inc/woocommerce.php';
 require_once get_template_directory() . '/inc/jetpack.php';
 require_once get_template_directory() . '/inc/contact-form-7.php';
 
+// Bootstrap Gutenberg Blocks
+require_once get_template_directory() . '/inc/blocks.php';
+
 // =============================================================================
 // 1. THEMA SETUP
 // =============================================================================

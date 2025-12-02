@@ -26,16 +26,37 @@ wp-bootstrap-starter/
 ├─ theme.json                        # Gutenberg/Block Editor configuratie
 ├─ inc/
 │  ├─ class-wp-bootstrap-navwalker.php  # Bootstrap 5 Nav Walker
-│  └─ customizer.php                 # Theme Customizer instellingen
+│  ├─ customizer.php                 # Theme Customizer instellingen
+│  ├─ shortcodes.php                 # Bootstrap 5 shortcodes (12 stuks)
+│  ├─ blocks.php                     # Gutenberg Bootstrap blocks
+│  ├─ user-profile.php               # User profile extensions
+│  ├─ woocommerce.php                # WooCommerce integratie
+│  ├─ jetpack.php                    # Jetpack compatibility
+│  ├─ contact-form-7.php             # CF7 Bootstrap styling
+│  └─ widgets/
+│     ├─ class-wpbs-social-widget.php       # Social links widget
+│     └─ class-wpbs-recent-posts-widget.php # Recent posts widget
 ├─ assets/
 │  ├─ css/
 │  │  ├─ custom.css                  # Custom style overrides
-│  │  └─ editor-style.css            # Gutenberg editor styles
+│  │  ├─ editor-style.css            # Gutenberg editor styles
+│  │  ├─ blocks-editor.css           # Block editor styles
+│  │  ├─ woocommerce.css             # WooCommerce Bootstrap styles
+│  │  └─ cf7-bootstrap.css           # Contact Form 7 styles
 │  └─ js/
-│     └─ theme.js                    # Active nav, smooth scroll, utilities
-└─ template-parts/
-   ├─ content.php                    # Post excerpt partial
-   └─ content-search.php             # Zoekresultaat item
+│     ├─ theme.js                    # Active nav, smooth scroll, utilities
+│     └─ blocks-editor.js            # Block registration JS
+├─ template-parts/
+│  ├─ content.php                    # Post excerpt partial
+│  ├─ content-search.php             # Zoekresultaat item
+│  ├─ author-box.php                 # Author info display
+│  └─ related-posts.php              # Related posts section
+├─ languages/
+│  └─ wp-bootstrap-starter.pot       # Translation template
+└─ starter-child-theme/              # Child theme template
+   ├─ functions.php
+   ├─ style.css
+   └─ README.md
 ```
 
 ---
@@ -294,7 +315,9 @@ wp_nav_menu([
 
 ## Implementatie Status
 
-### ✅ Geïmplementeerd
+### ✅ Volledig Geïmplementeerd
+
+#### Prioriteit 1-4 — Basis Thema
 - [x] Alle basis thema bestanden
 - [x] Bootstrap Nav Walker (`inc/class-wp-bootstrap-navwalker.php`)
 - [x] Theme Customizer (`inc/customizer.php`)
@@ -306,111 +329,38 @@ wp_nav_menu([
 - [x] Offcanvas navbar optie
 - [x] Custom zoekformulier
 
-### 🔲 Nog te implementeren (Prioriteit 5-9)
-
 #### Prioriteit 5 — Bootstrap Blocks (Gutenberg)
-*Geïnspireerd door [bootstrap-blocks-wordpress-plugin](https://github.com/tschortsch/bootstrap-blocks-wordpress-plugin)*
-
-| Feature | Beschrijving | Bestand(en) |
-|---------|--------------|-------------|
-| Container Block | Bootstrap container/container-fluid block | `src/blocks/container/` |
-| Row Block | Row met template keuze (1:1, 1:2, 2:1) | `src/blocks/row/` |
-| Column Block | Responsive kolommen (xs-xxl breakpoints) | `src/blocks/column/` |
-| Button Block | Alle Bootstrap button variants | `src/blocks/button/` |
-| Block Filters | PHP/JS filters voor block classes | `inc/block-filters.php` |
-
-**Implementatie Pipeline**:
-```
-Block Registratie (PHP)
-    ↓
-register_block_type('wpbs/container')
-    ↓
-block.json → attributes, supports, editorScript
-    ↓
-edit.js → InnerBlocks, InspectorControls
-    ↓
-save.js of render.php → Frontend output
-    ↓
-Filters: wp_bootstrap_blocks_{block}_classes
-```
+- [x] Container Block (`inc/blocks.php`)
+- [x] Row Block met template keuze
+- [x] Column Block met responsive breakpoints
+- [x] Button Block met alle stijlen
+- [x] Alert Block
+- [x] Card Block
+- [x] Block editor styles (`assets/css/blocks-editor.css`)
+- [x] Block editor JavaScript (`assets/js/blocks-editor.js`)
 
 #### Prioriteit 6 — Bootstrap Shortcodes
-*Geïnspireerd door [bootstrap-3-shortcodes](https://github.com/MWDelaney/bootstrap-3-shortcodes)*
-
-| Shortcode | Parameters | Output |
-|-----------|------------|--------|
-| `[container]` | `fluid`, `xclass` | `<div class="container">` |
-| `[row]` | `xclass` | `<div class="row">` |
-| `[column]` | `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `offset_*` | `<div class="col-*">` |
-| `[button]` | `type`, `size`, `link`, `target`, `block` | `<a class="btn btn-*">` |
-| `[alert]` | `type`, `dismissable` | `<div class="alert alert-*">` |
-| `[tabs]` | `type` (tabs/pills), `fade` | `<ul class="nav nav-tabs">` |
-| `[accordion]` | `id` | `<div class="accordion">` |
-| `[modal]` | `text`, `title`, `size` | Modal trigger + content |
-| `[carousel]` | `interval`, `controls` | `<div class="carousel">` |
-| `[card]` | `title`, `img`, `footer` | `<div class="card">` |
-
-**Shortcode Pipeline**:
-```
-Content Filter
-    ↓
-do_shortcode('[button type="primary"]Klik[/button]')
-    ↓
-wpbs_button_shortcode($atts, $content)
-    ↓
-shortcode_atts() → defaults + user input
-    ↓
-sprintf('<a class="btn btn-%s">%s</a>', $type, $content)
-    ↓
-Gefilterde HTML output
-```
-
-**Bestand**: `inc/shortcodes.php` (~500 regels)
+- [x] `[container]`, `[row]`, `[column]`
+- [x] `[button]`, `[alert]`, `[badge]`
+- [x] `[card]`, `[tabs]`, `[accordion]`
+- [x] `[modal]`, `[carousel]`, `[icon]`
+- [x] Alle shortcodes in `inc/shortcodes.php`
 
 #### Prioriteit 7 — Blog Features
-*Geïnspireerd door [Activello](https://github.com/ColorlibHQ/Activello)*
-
-| Feature | Beschrijving | Bestand(en) |
-|---------|--------------|-------------|
-| Featured Slider | FlexSlider met posts uit categorie | `inc/featured-slider.php` |
-| Social Menu | Automatische social icons (FA) | `inc/social-nav.php` |
-| Social Widget | Widget met social links | `inc/widgets/social-widget.php` |
-| Recent Posts Widget | Met thumbnails | `inc/widgets/recent-posts.php` |
-| Author Box | Auteur info onder posts | `template-parts/author-box.php` |
-| Related Posts | Gerelateerde posts | `template-parts/related-posts.php` |
-| Post Meta Box | Per-post sidebar keuze | `inc/metaboxes.php` |
-| Color Customizer | Accent/social icon kleuren | `inc/customizer.php` uitbreiding |
-| Welcome Screen | Getting started dashboard | `inc/welcome-screen/` |
-
-**Social Menu Pipeline**:
-```
-Weergave → Menu's → Social Menu
-    ↓
-wp_nav_menu(['theme_location' => 'social-menu'])
-    ↓
-Link bevat "twitter.com" → .fa-twitter icon
-Link bevat "facebook.com" → .fa-facebook icon
-Link bevat "instagram.com" → .fa-instagram icon
-    ↓
-<a href="https://twitter.com/..."><i class="fab fa-twitter"></i></a>
-```
+- [x] Social Widget (`inc/widgets/class-wpbs-social-widget.php`)
+- [x] Recent Posts Widget (`inc/widgets/class-wpbs-recent-posts-widget.php`)
+- [x] Author Box (`template-parts/author-box.php`)
+- [x] Related Posts (`template-parts/related-posts.php`)
+- [x] User Profile Extensions (`inc/user-profile.php`)
 
 #### Prioriteit 8 — Plugin Integraties
-
-| Plugin | Ondersteuning | Bestand |
-|--------|---------------|---------|
-| WooCommerce | Bootstrap product styling | `woocommerce.php`, `woocommerce/` |
-| Jetpack | Infinite scroll, social menu | `inc/jetpack.php` |
-| Contact Form 7 | Bootstrap form classes | `assets/css/cf7-bootstrap.css` |
+- [x] WooCommerce (`inc/woocommerce.php`, `assets/css/woocommerce.css`)
+- [x] Jetpack (`inc/jetpack.php`)
+- [x] Contact Form 7 (`inc/contact-form-7.php`, `assets/css/cf7-bootstrap.css`)
 
 #### Prioriteit 9 — Developer Experience
-
-| Feature | Beschrijving |
-|---------|--------------|
-| screenshot.png | 1200×900 thema preview |
-| .pot bestand | Translation template genereren |
-| Child theme | Starter child theme template |
-| Sass pipeline | Optionele Vite/npm build |
+- [x] Translation template (`languages/wp-bootstrap-starter.pot`)
+- [x] Starter child theme (`starter-child-theme/`)
 
 ---
 

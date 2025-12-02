@@ -1,0 +1,213 @@
+/**
+ * Bootstrap Blocks - Editor Styles
+ *
+ * Styling voor Bootstrap blocks in de Gutenberg editor.
+ *
+ * @package WP_Bootstrap_Starter
+ * @since 0.2.0
+ */
+
+/* =============================================================================
+   BLOCK EDITOR WRAPPER
+   ============================================================================= */
+
+/* Container Block */
+.wp-block-wpbs-container {
+    border: 1px dashed var(--wp-admin-theme-color, #007cba);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.wp-block-wpbs-container::before {
+    content: 'Container';
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--wp-admin-theme-color, #007cba);
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+.wp-block-wpbs-container.is-fluid::before {
+    content: 'Container (Fluid)';
+}
+
+/* Row Block */
+.wp-block-wpbs-row {
+    border: 1px dashed #28a745;
+    padding: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.25rem;
+}
+
+.wp-block-wpbs-row::before {
+    content: 'Row';
+    display: block;
+    width: 100%;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+/* Column Block */
+.wp-block-wpbs-column {
+    border: 1px dashed #6c757d;
+    padding: 0.5rem;
+    margin: 0.25rem;
+    flex: 1;
+    min-width: 100px;
+}
+
+.wp-block-wpbs-column::before {
+    content: 'Column';
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+/* Button Block */
+.wp-block-wpbs-button {
+    display: inline-block;
+}
+
+.wp-block-wpbs-button .btn {
+    cursor: pointer;
+}
+
+/* Alert Block */
+.wp-block-wpbs-alert {
+    margin-bottom: 1rem;
+}
+
+/* Card Block */
+.wp-block-wpbs-card {
+    margin-bottom: 1rem;
+}
+
+.wp-block-wpbs-card .card {
+    max-width: 100%;
+}
+
+.wp-block-wpbs-card .card-body .block-editor-inner-blocks {
+    min-height: 50px;
+}
+
+/* =============================================================================
+   INSPECTOR CONTROLS
+   ============================================================================= */
+
+.wpbs-block-inspector .components-panel__body {
+    border-bottom: 1px solid #ddd;
+}
+
+.wpbs-block-inspector .components-base-control {
+    margin-bottom: 12px;
+}
+
+.wpbs-block-inspector .components-base-control__label {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+/* Breakpoint Controls */
+.wpbs-breakpoint-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.wpbs-breakpoint-controls .components-base-control {
+    margin-bottom: 0;
+}
+
+.wpbs-breakpoint-controls input[type="number"] {
+    text-align: center;
+}
+
+/* Template Selector */
+.wpbs-template-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.wpbs-template-selector .wpbs-template-option {
+    border: 2px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+}
+
+.wpbs-template-selector .wpbs-template-option:hover {
+    border-color: #999;
+}
+
+.wpbs-template-selector .wpbs-template-option.is-selected {
+    border-color: var(--wp-admin-theme-color, #007cba);
+    background: rgba(0, 124, 186, 0.05);
+}
+
+.wpbs-template-selector .wpbs-template-option svg {
+    width: 100%;
+    height: 24px;
+}
+
+/* =============================================================================
+   BLOCK SELECTION FEEDBACK
+   ============================================================================= */
+
+.wp-block-wpbs-container.is-selected {
+    border-color: var(--wp-admin-theme-color, #007cba);
+    border-style: solid;
+}
+
+.wp-block-wpbs-row.is-selected {
+    border-color: #28a745;
+    border-style: solid;
+}
+
+.wp-block-wpbs-column.is-selected {
+    border-color: #6c757d;
+    border-style: solid;
+}
+
+/* =============================================================================
+   PLACEHOLDER STYLES
+   ============================================================================= */
+
+.wp-block-wpbs-container .block-editor-block-list__layout:empty::after,
+.wp-block-wpbs-row .block-editor-block-list__layout:empty::after,
+.wp-block-wpbs-column .block-editor-block-list__layout:empty::after {
+    content: '+';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    color: #999;
+    font-size: 24px;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+}
+
+/* =============================================================================
+   RESPONSIVE PREVIEW
+   ============================================================================= */
+
+/* Hide breakpoint labels in smaller previews */
+.edit-post-visual-editor[data-type-perspective="tablet"] .wp-block-wpbs-container::before,
+.edit-post-visual-editor[data-type-perspective="mobile"] .wp-block-wpbs-container::before {
+    display: none;
+}

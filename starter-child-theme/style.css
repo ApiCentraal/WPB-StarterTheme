@@ -1,0 +1,55 @@
+/*
+ Theme Name:   WP Bootstrap Starter Child
+ Theme URI:    https://github.com/ApiCentraal/WPB-StarterTheme
+ Description:  Child theme voor WP Bootstrap Starter - Pas dit bestand aan met je eigen styles.
+ Author:       FectionLabs
+ Author URI:   https://fectionlabs.com
+ Template:     wp-bootstrap-starter
+ Version:      1.0.0
+ License:      GPL-2.0+
+ License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+ Text Domain:  wp-bootstrap-starter-child
+*/
+
+/* =============================================================================
+   CHILD THEME CUSTOM STYLES
+   ============================================================================= */
+
+/*
+ * Voeg hier je eigen custom CSS toe.
+ * 
+ * Bootstrap utility classes zijn beschikbaar.
+ * Gebruik CSS variabelen voor consistentie:
+ *
+ * --bs-primary: #0d6efd;
+ * --bs-secondary: #6c757d;
+ * --bs-success: #198754;
+ * --bs-danger: #dc3545;
+ * --bs-warning: #ffc107;
+ * --bs-info: #0dcaf0;
+ * --bs-light: #f8f9fa;
+ * --bs-dark: #212529;
+ */
+
+/* Voorbeeld: Custom primary kleur */
+/*
+:root {
+    --bs-primary: #your-color;
+    --bs-primary-rgb: r, g, b;
+}
+*/
+
+/* Voorbeeld: Custom navbar styling */
+/*
+.navbar {
+    background-color: var(--bs-dark) !important;
+}
+*/
+
+/* Voorbeeld: Custom button styling */
+/*
+.btn-primary {
+    background-color: #your-color;
+    border-color: #your-color;
+}
+*/
