@@ -1,0 +1,60 @@
+/**
+ * WP Bootstrap Starter - Custom Styles
+ * 
+ * Plaats hier je custom CSS overrides.
+ * Deze stylesheet wordt geladen NA Bootstrap en de thema styles.
+ * 
+ * Houd selectors specifiek en lichtgewicht.
+ * Gebruik waar mogelijk Bootstrap utility classes.
+ */
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+
+/* Minimale hoogte voor main content */
+.site-main {
+    min-height: 60vh;
+}
+
+/* ==========================================================================
+   NAVIGATIE
+   ========================================================================== */
+
+/* Active menu item styling */
+.navbar-nav .nav-link.active {
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+/* Entry content typografie */
+.entry-content {
+    line-height: 1.8;
+}
+
+.entry-content p {
+    margin-bottom: 1.25rem;
+}
+
+/* ==========================================================================
+   WIDGETS
+   ========================================================================== */
+
+/* Widget card body padding */
+.widget .card-body {
+    padding: 1rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE AANPASSINGEN
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    .site-main {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
