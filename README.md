@@ -5,9 +5,13 @@ Minimalistisch WordPress starter thema met Bootstrap 5.3 via CDN. Geen build too
 ## ✨ Kenmerken
 
 - **Bootstrap 5.3.4** via jsDelivr CDN
-- **Responsive** navbar met mobiele toggle
-- **Widget-ready** sidebar met Bootstrap card styling
-- **Paginatie** voor archieven en zoekresultaten
+- **Bootstrap Nav Walker** voor dropdown menu's
+- **Theme Customizer** met layout opties
+- **Gutenberg/Block Editor** ondersteuning met theme.json
+- **5 Widget areas** (sidebar, 3× footer, hero)
+- **Responsive** navbar (collapse of offcanvas)
+- **Accessibility** skip-link en ARIA attributen
+- **Back to Top** knop
 - **Security hardening** (WP versie verborgen, emoji scripts verwijderd)
 - **Nederlandse** vertalingen ingebouwd
 
@@ -15,24 +19,32 @@ Minimalistisch WordPress starter thema met Bootstrap 5.3 via CDN. Geen build too
 
 ```
 wp-bootstrap-starter/
-├─ style.css                    # Thema header metadata
-├─ functions.php                # Setup, assets, widgets, security
-├─ header.php                   # DOCTYPE, <head>, Bootstrap navbar
-├─ footer.php                   # Footer, wp_footer() hook
-├─ index.php                    # Hoofdloop (col-md-8 + sidebar)
-├─ single.php                   # Enkel bericht template
-├─ page.php                     # Pagina template (full-width)
-├─ archive.php                  # Categorie/tag/datum archieven
-├─ search.php                   # Zoekresultaten
-├─ 404.php                      # Foutpagina
-├─ sidebar.php                  # Widget gebied
-├─ comments.php                 # Reactie formulier en lijst
+├─ style.css                         # Thema header metadata
+├─ functions.php                     # Setup, assets, widgets, security
+├─ header.php                        # DOCTYPE, <head>, Bootstrap navbar
+├─ footer.php                        # Footer widgets, menu, back-to-top
+├─ index.php                         # Hoofdloop met sidebar positie
+├─ single.php                        # Enkel bericht template
+├─ page.php                          # Pagina template (full-width)
+├─ archive.php                       # Categorie/tag/datum archieven
+├─ search.php                        # Zoekresultaten
+├─ searchform.php                    # Custom zoekformulier
+├─ 404.php                           # Foutpagina
+├─ sidebar.php                       # Widget gebied
+├─ comments.php                      # Reactie formulier en lijst
+├─ theme.json                        # Gutenberg/Block Editor configuratie
+├─ inc/
+│  ├─ class-wp-bootstrap-navwalker.php  # Bootstrap 5 Nav Walker
+│  └─ customizer.php                 # Theme Customizer instellingen
 ├─ assets/
-│  ├─ css/custom.css            # Custom style overrides
-│  └─ js/theme.js               # Active nav + smooth scroll
+│  ├─ css/
+│  │  ├─ custom.css                  # Custom style overrides
+│  │  └─ editor-style.css            # Gutenberg editor styles
+│  └─ js/
+│     └─ theme.js                    # Active nav, smooth scroll, utilities
 └─ template-parts/
-   ├─ content.php               # Post excerpt partial
-   └─ content-search.php        # Zoekresultaat item
+   ├─ content.php                    # Post excerpt partial
+   └─ content-search.php             # Zoekresultaat item
 ```
 
 ## 🚀 Installatie
@@ -40,32 +52,42 @@ wp-bootstrap-starter/
 1. Download of clone deze repository
 2. Kopieer naar `wp-content/themes/wp-bootstrap-starter/`
 3. Activeer het thema via **Weergave → Thema's**
-4. Stel een menu in via **Weergave → Menu's** (locatie: Hoofdmenu)
+4. Stel een menu in via **Weergave → Menu's** (locatie: Hoofdmenu, Footer Menu)
 5. Voeg widgets toe via **Weergave → Widgets**
+6. Pas layout aan via **Weergave → Customizer**
 
-## 🎨 Bootstrap Grid
+## ⚙️ Customizer Opties
 
-| Template | Content | Sidebar | Layout |
-|----------|---------|---------|--------|
-| `index.php` | `col-md-8` | `col-md-4` | 2 kolommen |
-| `single.php` | `col-md-8` | `col-md-4` | 2 kolommen |
-| `archive.php` | `col-md-8` | `col-md-4` | 2 kolommen |
-| `search.php` | `col-md-8` | `col-md-4` | 2 kolommen |
-| `page.php` | `col-md-12` | — | Full-width |
+| Instelling | Opties | Standaard |
+|------------|--------|-----------|
+| Container Type | `container` / `container-fluid` | `container` |
+| Sidebar Positie | `left` / `right` / `none` | `right` |
+| Navbar Type | `collapse` / `offcanvas` | `collapse` |
+| Footer Tekst | Vrij tekstveld | © {year} {site name} |
 
-## 🔧 Functies
+## 🎨 Widget Areas
 
-### `wpbs_setup()`
-Thema initialisatie: title-tag, thumbnails, HTML5 support, menu registratie.
+| ID | Naam | Locatie |
+|----|------|---------|
+| `primary-sidebar` | Primaire Sidebar | Naast content |
+| `footer-1` | Footer Kolom 1 | Eerste footer kolom |
+| `footer-2` | Footer Kolom 2 | Tweede footer kolom |
+| `footer-3` | Footer Kolom 3 | Derde footer kolom |
+| `hero` | Hero Sectie | Boven content (header) |
 
-### `wpbs_enqueue_assets()`
-Laadt CSS/JS in volgorde: Bootstrap CSS → Theme → Custom → Bootstrap JS → Theme JS.
+## 🔧 Belangrijke Functies
 
-### `wpbs_cleanup_head()`
-Security: verbergt WP versie, verwijdert emoji scripts.
-
-### `wpbs_widgets_init()`
-Registreert `primary-sidebar` widget gebied met Bootstrap card styling.
+| Functie | Beschrijving |
+|---------|--------------|
+| `wpbs_setup()` | Thema initialisatie, supports, menu's |
+| `wpbs_enqueue_assets()` | CSS/JS laden (Bootstrap CDN) |
+| `wpbs_cleanup_head()` | Security hardening |
+| `wpbs_widgets_init()` | Widget areas registreren |
+| `wpbs_get_container_type()` | Haal container instelling op |
+| `wpbs_get_sidebar_position()` | Haal sidebar positie op |
+| `wpbs_has_sidebar()` | Check of sidebar actief is |
+| `wpbs_the_custom_logo()` | Toon logo of site titel |
+| `wpbs_site_info()` | Footer copyright tekst |
 
 ## 📝 Code Conventies
 
@@ -73,39 +95,37 @@ Registreert `primary-sidebar` widget gebied met Bootstrap card styling.
 - **Text domain**: `wp-bootstrap-starter`
 - **Escaping**: Altijd `esc_*` functies gebruiken
 - **Vertalingen**: `__()` of `_e()` met text domain
+- **CSS**: Bootstrap utilities waar mogelijk
 
-## 🔒 Beveiliging
+## ✅ Geïmplementeerde Features
 
-- WordPress versie verborgen in `<head>`
-- Emoji scripts/styles verwijderd
-- Overweeg SRI hashes voor CDN assets in productie
-
-## 📋 Roadmap
-
-### Prioriteit 1 — Essentieel
-- [ ] **Bootstrap Nav Walker** — Dropdown menu's met Bootstrap 5 classes (`inc/class-wp-bootstrap-navwalker.php`)
-- [ ] **Custom Logo support** — `add_theme_support('custom-logo')` in `functions.php`
-- [ ] **Skip to content link** — Accessibility verbetering in `header.php`
+### Prioriteit 1 — Essentieel ✓
+- [x] **Bootstrap Nav Walker** — Dropdown menu's met Bootstrap 5 classes
+- [x] **Custom Logo support** — `add_theme_support('custom-logo')`
+- [x] **Skip to content link** — Accessibility verbetering
 - [ ] **screenshot.png** — 1200x900 thema preview afbeelding
 
-### Prioriteit 2 — Customizer & Layout
-- [ ] **Theme Customizer** — Container type (container/container-fluid) instelling
-- [ ] **Sidebar positie** — Links/rechts/geen via Customizer
-- [ ] **Container type variabel** — `get_theme_mod('container_type')` in templates
-- [ ] **Footer widget area** — Extra widget gebied in footer
+### Prioriteit 2 — Customizer & Layout ✓
+- [x] **Theme Customizer** — Container type instelling
+- [x] **Sidebar positie** — Links/rechts/geen via Customizer
+- [x] **Container type variabel** — Dynamisch in alle templates
+- [x] **Footer widget area** — 3 kolommen footer widgets
 
-### Prioriteit 3 — Gutenberg & Blocks
-- [ ] **theme.json** — Block editor kleuren, spacing, fonts
-- [ ] **Editor styles** — `add_theme_support('editor-styles')`
-- [ ] **Wide alignment** — `add_theme_support('align-wide')`
-- [ ] **Block styling** — Bootstrap classes voor Gutenberg blocks
+### Prioriteit 3 — Gutenberg & Blocks ✓
+- [x] **theme.json** — Block editor kleuren, spacing, fonts
+- [x] **Editor styles** — `add_editor_style('assets/css/editor-style.css')`
+- [x] **Wide alignment** — `add_theme_support('align-wide')`
+- [x] **Block styling** — Bootstrap classes voor Gutenberg blocks
 
-### Prioriteit 4 — Extra Features
-- [ ] **Custom header image** — `add_theme_support('custom-header')`
-- [ ] **Custom background** — `add_theme_support('custom-background')`
-- [ ] **Post formats** — aside, image, video, quote, link
-- [ ] **Offcanvas navbar** — Alternatief voor collapse menu (BS5)
-- [ ] **Responsive embeds** — `add_theme_support('responsive-embeds')`
+### Prioriteit 4 — Extra Features ✓
+- [x] **Custom header image** — `add_theme_support('custom-header')`
+- [x] **Custom background** — `add_theme_support('custom-background')`
+- [x] **Post formats** — aside, image, video, quote, link, gallery
+- [x] **Offcanvas navbar** — Via Customizer schakelbaar
+- [x] **Responsive embeds** — `add_theme_support('responsive-embeds')`
+- [x] **Back to Top** — Scroll-to-top knop
+
+## 📋 Nog Te Implementeren
 
 ### Prioriteit 5 — Plugins & Integraties
 - [ ] **WooCommerce support** — `woocommerce.php` met Bootstrap styling
@@ -117,6 +137,14 @@ Registreert `primary-sidebar` widget gebied met Bootstrap card styling.
 - [ ] **Minified CSS/JS** — Productie builds met `.min` bestanden
 - [ ] **Translation ready** — `.pot` bestand genereren
 - [ ] **Child theme** — Starter child theme template
+- [ ] **screenshot.png** — 1200x900 thema preview
+
+## 🔒 Beveiliging
+
+- WordPress versie verborgen in `<head>`
+- Emoji scripts/styles verwijderd
+- Escape alle output met `esc_*` functies
+- Overweeg SRI hashes voor CDN assets in productie
 
 ## 📄 Licentie
 

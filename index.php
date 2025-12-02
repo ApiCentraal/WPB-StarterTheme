@@ -5,12 +5,26 @@
  * Pipeline:
  * Browser Request → WordPress Template Hiërarchie → index.php
  *   → get_header() → The Loop → get_sidebar() → get_footer()
+ *
+ * @package WP_Bootstrap_Starter
  */
-get_header(); ?>
+get_header();
+
+$sidebar_position = wpbs_get_sidebar_position();
+$has_sidebar      = wpbs_has_sidebar();
+$content_class    = $has_sidebar ? 'col-md-8' : 'col-md-12';
+?>
 
 <div class="row">
+    <?php if ($has_sidebar && $sidebar_position === 'left') : ?>
+    <!-- Sidebar kolom (links) -->
+    <aside class="col-md-4 order-md-1">
+        <?php get_sidebar(); ?>
+    </aside>
+    <?php endif; ?>
+
     <!-- Content kolom -->
-    <div class="col-md-8">
+    <div class="<?php echo esc_attr($content_class); ?> <?php echo $sidebar_position === 'left' ? 'order-md-2' : ''; ?>">
         <?php if (have_posts()) : ?>
             
             <?php while (have_posts()) : the_post(); ?>
@@ -38,10 +52,12 @@ get_header(); ?>
         <?php endif; ?>
     </div>
     
-    <!-- Sidebar kolom -->
+    <?php if ($has_sidebar && $sidebar_position === 'right') : ?>
+    <!-- Sidebar kolom (rechts) -->
     <aside class="col-md-4">
         <?php get_sidebar(); ?>
     </aside>
+    <?php endif; ?>
 </div>
 
 <?php get_footer(); ?>

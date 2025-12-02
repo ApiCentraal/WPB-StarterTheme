@@ -10,18 +10,32 @@ Minimalistisch WordPress starter thema met Bootstrap 5.3 via CDN. Geen build too
 ### Bestandsstructuur
 ```
 wp-bootstrap-starter/
-├─ style.css                    # Thema header + optionele imports
-├─ functions.php                # Thema setup, assets, beveiliging
-├─ header.php                   # DOCTYPE, <head>, navbar
-├─ footer.php                   # Footer, wp_footer() hook
-├─ index.php                    # Hoofdloop met Bootstrap grid
-├─ page.php                     # Volledige breedte pagina template
-├─ single.php                   # Enkel bericht template met sidebar
-├─ 404.php                      # Foutpagina
-├─ sidebar.php                  # Widget gebied
-├─ assets/css/custom.css        # Custom style overrides
-├─ assets/js/theme.js           # Thema JavaScript (vanilla JS)
-└─ template-parts/content.php   # Herbruikbaar post excerpt partial
+├─ style.css                         # Thema header metadata
+├─ functions.php                     # Setup, assets, widgets, security
+├─ header.php                        # DOCTYPE, <head>, Bootstrap navbar
+├─ footer.php                        # Footer widgets, menu, back-to-top
+├─ index.php                         # Hoofdloop met sidebar positie
+├─ single.php                        # Enkel bericht template
+├─ page.php                          # Pagina template (full-width)
+├─ archive.php                       # Categorie/tag/datum archieven
+├─ search.php                        # Zoekresultaten
+├─ searchform.php                    # Custom zoekformulier (Bootstrap)
+├─ 404.php                           # Foutpagina
+├─ sidebar.php                       # Widget gebied
+├─ comments.php                      # Reactie formulier en lijst
+├─ theme.json                        # Gutenberg/Block Editor configuratie
+├─ inc/
+│  ├─ class-wp-bootstrap-navwalker.php  # Bootstrap 5 Nav Walker
+│  └─ customizer.php                 # Theme Customizer instellingen
+├─ assets/
+│  ├─ css/
+│  │  ├─ custom.css                  # Custom style overrides
+│  │  └─ editor-style.css            # Gutenberg editor styles
+│  └─ js/
+│     └─ theme.js                    # Active nav, smooth scroll, utilities
+└─ template-parts/
+   ├─ content.php                    # Post excerpt partial
+   └─ content-search.php             # Zoekresultaat item
 ```
 
 ---
@@ -39,10 +53,17 @@ WordPress Init
 after_setup_theme hook
     ↓
 wpbs_setup()
-    ├─→ add_theme_support('title-tag')      → <title> tag in <head>
+    ├─→ add_theme_support('title-tag')       → <title> tag in <head>
     ├─→ add_theme_support('post-thumbnails') → Uitgelichte afbeeldingen
     ├─→ add_theme_support('html5', [...])    → HTML5 markup voor formulieren
-    └─→ register_nav_menus(['primary'])      → Menu locatie voor navbar
+    ├─→ add_theme_support('custom-logo')     → Custom logo ondersteuning
+    ├─→ add_theme_support('custom-header')   → Custom header afbeelding
+    ├─→ add_theme_support('custom-background') → Custom achtergrond
+    ├─→ add_theme_support('editor-styles')   → Gutenberg editor styling
+    ├─→ add_theme_support('align-wide')      → Wide/full alignment blocks
+    ├─→ add_theme_support('responsive-embeds') → Responsive video embeds
+    ├─→ add_theme_support('post-formats')    → Post formaten (aside, video, etc.)
+    └─→ register_nav_menus(['primary', 'footer']) → Menu locaties
 ```
 
 **Koppeling**: Wordt aangeroepen via `add_action('after_setup_theme', 'wpbs_setup')`
@@ -53,6 +74,9 @@ if (!function_exists('wpbs_setup')) {
     function wpbs_setup() {
         add_theme_support('title-tag');
         add_theme_support('post-thumbnails');
+        add_theme_support('custom-logo', array('height' => 100, 'width' => 350, 'flex-height' => true));
+        add_theme_support('editor-styles');
+        add_editor_style('assets/css/editor-style.css');
         register_nav_menus(['primary' => __('Hoofdmenu', 'wp-bootstrap-starter')]);
     }
     add_action('after_setup_theme', 'wpbs_setup');
@@ -221,10 +245,14 @@ wp_nav_menu([
 
 | Template    | Content kolom | Sidebar | Totaal |
 |-------------|---------------|---------|--------|
-| index.php   | `col-md-8`    | `col-md-4` | 12 |
-| single.php  | `col-md-8`    | `col-md-4` | 12 |
+| index.php   | dynamisch (`col-md-8` / `col-md-12`) | optioneel `col-md-4` | 12 |
+| single.php  | dynamisch (`col-md-8` / `col-md-12`) | optioneel `col-md-4` | 12 |
+| archive.php | dynamisch (`col-md-8` / `col-md-12`) | optioneel `col-md-4` | 12 |
+| search.php  | dynamisch (`col-md-8` / `col-md-12`) | optioneel `col-md-4` | 12 |
+| 404.php     | dynamisch (`col-md-8` / `col-md-12`) | optioneel `col-md-4` | 12 |
 | page.php    | `col-md-12`   | —       | 12 |
-| 404.php     | `col-md-8`    | `col-md-4` | 12 |
+
+**Let op**: Sidebar positie (links/rechts/geen) wordt bepaald via `wpbs_get_sidebar_position()` uit de Theme Customizer.
 
 ---
 
@@ -251,50 +279,48 @@ wp_nav_menu([
 
 ---
 
-## Takenlijst voor Implementatie
+## Helper Functies
 
-### Fase 1: Basis Thema Bestanden
-- [ ] `style.css` — Thema header metadata aanmaken
-- [ ] `functions.php` — Alle functies implementeren
-- [ ] `header.php` — DOCTYPE, head, navbar
-- [ ] `footer.php` — Footer met wp_footer()
+| Functie | Return | Beschrijving |
+|---------|--------|--------------|
+| `wpbs_get_container_type()` | `string` | Haalt `container` of `container-fluid` op uit Customizer |
+| `wpbs_get_sidebar_position()` | `string` | Haalt `left`, `right`, of `none` op uit Customizer |
+| `wpbs_has_sidebar()` | `bool` | Controleert of sidebar actief is (niet `none` + heeft widgets) |
+| `wpbs_get_navbar_type()` | `string` | Haalt `collapse` of `offcanvas` op uit Customizer |
+| `wpbs_the_custom_logo()` | `void` | Toont custom logo of site titel als fallback |
+| `wpbs_site_info()` | `void` | Toont footer copyright (customizer of default) |
 
-### Fase 2: Templates
-- [ ] `index.php` — Hoofdloop met grid
-- [ ] `single.php` — Enkel bericht template
-- [ ] `page.php` — Pagina template (full-width)
-- [ ] `404.php` — Foutpagina
-- [ ] `sidebar.php` — Widget gebied
-- [ ] `template-parts/content.php` — Post excerpt partial
+---
 
-### Fase 3: Assets
-- [ ] `assets/css/custom.css` — Lege custom stylesheet
-- [ ] `assets/js/theme.js` — Active nav link script
+## Implementatie Status
 
-### Fase 4: Uitbreidingen (Optioneel)
-- [ ] Widget registratie in `functions.php`
-- [ ] Bootstrap Nav Walker class
-- [ ] `theme.json` voor Gutenberg
-- [ ] SRI hashes voor CDN assets
+### ✅ Geïmplementeerd
+- [x] Alle basis thema bestanden
+- [x] Bootstrap Nav Walker (`inc/class-wp-bootstrap-navwalker.php`)
+- [x] Theme Customizer (`inc/customizer.php`)
+- [x] 5 Widget areas (sidebar, 3× footer, hero)
+- [x] Gutenberg ondersteuning (`theme.json`, editor-style.css)
+- [x] Dynamische sidebar positie in alle templates
+- [x] Skip-to-content link
+- [x] Back-to-top knop
+- [x] Offcanvas navbar optie
+- [x] Custom zoekformulier
+
+### 🔲 Nog te implementeren
+- [ ] screenshot.png (1200×900)
+- [ ] WooCommerce support
+- [ ] Translation .pot bestand
+- [ ] Child theme template
 
 ---
 
 ## Beveiliging
 - WP versie verborgen (`remove_action('wp_head', 'wp_generator')`)
 - Emoji scripts/styles verwijderd voor performance
+- Escape alle output met `esc_*` functies
 - Overweeg SRI hashes voor CDN resources in productie
 
 ## Contribution Guidelines
 - Fork the repo and create feature branches
 - Follow coding conventions strictly
 - Submit pull requests with clear descriptions of changes
-          'fallback_cb' => false,
-          'depth' => 2,
-          'walker' => new WP_Bootstrap_Navwalker(), // Optional: if using a custom walker for Bootstrap
-          ));
-        ?>
-      </div>
-    </div>
-  </nav>
-</header>
-```

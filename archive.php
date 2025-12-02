@@ -5,12 +5,24 @@
  * Pipeline:
  * Browser Request: /category/nieuws → archive.php
  *   → get_header() → Archief titel → Posts loop → get_sidebar() → get_footer()
+ *
+ * @package WP_Bootstrap_Starter
  */
-get_header(); ?>
+get_header();
+
+$sidebar_position = wpbs_get_sidebar_position();
+$has_sidebar      = wpbs_has_sidebar();
+$content_class    = $has_sidebar ? 'col-md-8' : 'col-md-12';
+?>
 
 <div class="row">
-    <!-- Content kolom -->
-    <div class="col-md-8">
+    <?php if ($has_sidebar && $sidebar_position === 'left') : ?>
+    <aside class="col-md-4 order-md-1">
+        <?php get_sidebar(); ?>
+    </aside>
+    <?php endif; ?>
+
+    <div class="<?php echo esc_attr($content_class); ?> <?php echo $sidebar_position === 'left' ? 'order-md-2' : ''; ?>">
         <header class="page-header mb-4">
             <?php
             the_archive_title('<h1 class="page-title">', '</h1>');
@@ -43,10 +55,11 @@ get_header(); ?>
         <?php endif; ?>
     </div>
     
-    <!-- Sidebar kolom -->
+    <?php if ($has_sidebar && $sidebar_position === 'right') : ?>
     <aside class="col-md-4">
         <?php get_sidebar(); ?>
     </aside>
+    <?php endif; ?>
 </div>
 
 <?php get_footer(); ?>

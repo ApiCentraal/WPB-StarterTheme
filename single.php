@@ -5,12 +5,24 @@
  * Pipeline:
  * Browser Request: /blog/artikel → single.php
  *   → get_header() → Enkel artikel met volledige content → get_sidebar() → get_footer()
+ *
+ * @package WP_Bootstrap_Starter
  */
-get_header(); ?>
+get_header();
+
+$sidebar_position = wpbs_get_sidebar_position();
+$has_sidebar      = wpbs_has_sidebar();
+$content_class    = $has_sidebar ? 'col-md-8' : 'col-md-12';
+?>
 
 <div class="row">
-    <!-- Content kolom -->
-    <div class="col-md-8">
+    <?php if ($has_sidebar && $sidebar_position === 'left') : ?>
+    <aside class="col-md-4 order-md-1">
+        <?php get_sidebar(); ?>
+    </aside>
+    <?php endif; ?>
+
+    <div class="<?php echo esc_attr($content_class); ?> <?php echo $sidebar_position === 'left' ? 'order-md-2' : ''; ?>">
         <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
             
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -35,7 +47,6 @@ get_header(); ?>
                 </div>
                 
                 <?php
-                // Paginatie binnen bericht (<!--nextpage-->)
                 wp_link_pages(array(
                     'before' => '<nav class="page-links mt-4">' . __('Pagina\'s:', 'wp-bootstrap-starter'),
                     'after'  => '</nav>',
@@ -44,7 +55,6 @@ get_header(); ?>
                 
                 <footer class="entry-footer mt-4 pt-3 border-top">
                     <?php
-                    // Categorieën
                     $categories = get_the_category_list(', ');
                     if ($categories) {
                         printf('<p><strong>%s:</strong> %s</p>', 
@@ -53,7 +63,6 @@ get_header(); ?>
                         );
                     }
                     
-                    // Tags
                     $tags = get_the_tag_list('', ', ');
                     if ($tags) {
                         printf('<p><strong>%s:</strong> %s</p>',
@@ -65,7 +74,6 @@ get_header(); ?>
                 </footer>
             </article>
             
-            <!-- Post navigatie -->
             <nav class="post-navigation mt-4 pt-3 border-top">
                 <div class="row">
                     <div class="col-6">
@@ -78,7 +86,6 @@ get_header(); ?>
             </nav>
             
             <?php
-            // Reacties
             if (comments_open() || get_comments_number()) {
                 comments_template();
             }
@@ -87,10 +94,11 @@ get_header(); ?>
         <?php endwhile; endif; ?>
     </div>
     
-    <!-- Sidebar kolom -->
+    <?php if ($has_sidebar && $sidebar_position === 'right') : ?>
     <aside class="col-md-4">
         <?php get_sidebar(); ?>
     </aside>
+    <?php endif; ?>
 </div>
 
 <?php get_footer(); ?>
