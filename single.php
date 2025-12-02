@@ -73,6 +73,11 @@ $content_class    = $has_sidebar ? 'col-md-8' : 'col-md-12';
                     ?>
                 </footer>
             </article>
+
+            <?php
+            // Author Box (alleen tonen als auteur een bio heeft)
+            get_template_part('template-parts/author-box');
+            ?>
             
             <nav class="post-navigation mt-4 pt-3 border-top">
                 <div class="row">
@@ -89,6 +94,9 @@ $content_class    = $has_sidebar ? 'col-md-8' : 'col-md-12';
             if (comments_open() || get_comments_number()) {
                 comments_template();
             }
+            
+            // Gerelateerde berichten
+            get_template_part('template-parts/related-posts');
             ?>
             
         <?php endwhile; endif; ?>

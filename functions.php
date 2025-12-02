@@ -24,6 +24,13 @@ require_once get_template_directory() . '/inc/customizer.php';
 // Bootstrap 5.3 Shortcodes
 require_once get_template_directory() . '/inc/shortcodes.php';
 
+// Custom Widgets
+require_once get_template_directory() . '/inc/widgets/class-wpbs-social-widget.php';
+require_once get_template_directory() . '/inc/widgets/class-wpbs-recent-posts-widget.php';
+
+// User Profile Extensions (social media velden)
+require_once get_template_directory() . '/inc/user-profile.php';
+
 // =============================================================================
 // 1. THEMA SETUP
 // =============================================================================
@@ -283,6 +290,10 @@ if (!function_exists('wpbs_widgets_init')) {
             'before_title'  => '<h2 class="hero-title">',
             'after_title'   => '</h2>',
         ));
+
+        // Registreer custom widgets
+        register_widget('WPBS_Social_Widget');
+        register_widget('WPBS_Recent_Posts_Widget');
     }
     add_action('widgets_init', 'wpbs_widgets_init');
 }
