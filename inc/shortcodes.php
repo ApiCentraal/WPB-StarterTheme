@@ -178,7 +178,7 @@ class WPBS_Shortcodes {
      * [row] - Bootstrap row
      * 
      * @param string $cols      row-cols-* waarde (1-6 of auto)
-     * @param string $gutter    g-0 t/m g-5, of gx-*/gy-* combinatie
+     * @param string $gutter    g-0 t/m g-5, of gx-* / gy-* combinatie
      * @param string $align     justify-content-* waarde
      * @param string $valign    align-items-* waarde
      * @param string $xclass    Extra CSS classes
